@@ -6,7 +6,7 @@ import { calculateForbiddenTiles, calculateLastForbiddenTiles } from '../../asse
 import './Board.scss';
 import { useEffect, useState } from 'react/cjs/react.development';
 
-const Board = () => {
+const Board = ({ onShipsLeft }) => {
 	const [mode, setMode] = useState(MODES.PREPARE_MODE);
 	const [shipsTiles, setShipsTiles] = useState([]);
 	const [forbiddenTiles, setForbiddenTiles] = useState([]);
@@ -15,10 +15,6 @@ const Board = () => {
 
 	const [shipTemp, setShipTemp] = useState([]);
 	const [forbiddenTemp, setForbiddenTemp] = useState([]);
-	const [board, setBoard] = useState({
-		shipTemp: shipTemp,
-		forbiddenTemp: forbiddenTemp,
-	});
 
 	const prepareFleet = (tile) => {
 		if (isShipTempTile(tile)) {
@@ -181,8 +177,9 @@ const Board = () => {
 			setForbiddenTiles([...forbiddenTiles, ...forbiddenTemp, ...SHIP_LAST_TILES]);
 			setShipTemp([]);
 			setForbiddenTemp([]);
+			onShipsLeft();
 		}
-	}, [fleet, forbiddenTemp, forbiddenTiles, shipTemp, shipsTiles]);
+	}, [fleet, forbiddenTemp, forbiddenTiles, onShipsLeft, shipTemp, shipsTiles]);
 
 	return <div className='board'>{render()}</div>;
 };

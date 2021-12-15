@@ -50,9 +50,21 @@ export function calculateLastForbiddenTiles(ship) {
 
 	const getTiles = (tile) => {
 		const TILE_LAYS_ON_EDGE = isEdgeTile(tile);
+		const TILE_LAYS_ON_LEFT_EDGE = laysOnLeftEdge(tile);
+		const TILE_LAYS_ON_RIGHT_EDGE = laysOnRightEdge(tile);
 
 		if (TILE_LAYS_ON_EDGE) {
-			return new Forbidden(tile, [tile + 10, tile - 10]);
+			if (TILE_LAYS_ON_LEFT_EDGE) {
+				return sorted.length > 1
+					? new Forbidden(tile, [tile + 10, tile - 10])
+					: new Forbidden(tile, [tile + 1, tile + 10, tile - 10]);
+			}
+
+			if (TILE_LAYS_ON_RIGHT_EDGE) {
+				return sorted.length > 1
+					? new Forbidden(tile, [tile + 10, tile - 10])
+					: new Forbidden(tile, [tile - 1, tile + 10, tile - 10]);
+			}
 		} else {
 			switch (tile) {
 				case CORNERS.TOP_LEFT:
