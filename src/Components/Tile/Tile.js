@@ -1,16 +1,12 @@
 import './Tile.scss';
 
-const Tile = ({ row, col, isPartOfAShip, placeShip }) => {
-	const tileId = parseInt(`${row}${col}`);
+const Tile = ({ row, col, type, handleClick }) => {
+	// const tileId = parseInt(`${row}${col}`);
 
 	return (
-		<div
-			onClick={() => placeShip(tileId)}
-			id={tileId}
-			className={`tiles--tile row--${row + 1} col--${col + 1} ${
-				isPartOfAShip ? 'ship' : ''
-			}`}
-		/>
+		<div className='tile' data-type={type} data-row={row} data-col={col} onClick={handleClick}>
+			{/* {tileId} */}
+		</div>
 	);
 };
 

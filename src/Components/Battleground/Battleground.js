@@ -1,4 +1,5 @@
-import Tiles from '../Tiles/Tiles';
+// import Tiles from '../Tiles/Tiles';
+import Board from '../Board/Borad';
 import './Battleground.scss';
 
 const Battleground = ({ id }) => {
@@ -7,35 +8,35 @@ const Battleground = ({ id }) => {
 			<div className='battleground__wrapper'>
 				<div className='corner' />
 
-				<div className='row'>
-					<div className='row__number'>A</div>
-					<div className='row__number'>B</div>
-					<div className='row__number'>C</div>
-					<div className='row__number'>D</div>
-					<div className='row__number'>E</div>
-					<div className='row__number'>F</div>
-					<div className='row__number'>G</div>
-					<div className='row__number'>H</div>
-					<div className='row__number'>I</div>
-					<div className='row__number'>J</div>
+				<div className='letters'>
+					<div className='letters__item'>A</div>
+					<div className='letters__item'>B</div>
+					<div className='letters__item'>C</div>
+					<div className='letters__item'>D</div>
+					<div className='letters__item'>E</div>
+					<div className='letters__item'>F</div>
+					<div className='letters__item'>G</div>
+					<div className='letters__item'>H</div>
+					<div className='letters__item'>I</div>
+					<div className='letters__item'>J</div>
 				</div>
 			</div>
 
 			<div className='battleground__wrapper'>
-				<div className='col'>
-					<div className='col__number'>1</div>
-					<div className='col__number'>2</div>
-					<div className='col__number'>3</div>
-					<div className='col__number'>4</div>
-					<div className='col__number'>5</div>
-					<div className='col__number'>6</div>
-					<div className='col__number'>7</div>
-					<div className='col__number'>8</div>
-					<div className='col__number'>9</div>
-					<div className='col__number'>10</div>
+				<div className='numbers'>
+					<div className='numbers__item'>1</div>
+					<div className='numbers__item'>2</div>
+					<div className='numbers__item'>3</div>
+					<div className='numbers__item'>4</div>
+					<div className='numbers__item'>5</div>
+					<div className='numbers__item'>6</div>
+					<div className='numbers__item'>7</div>
+					<div className='numbers__item'>8</div>
+					<div className='numbers__item'>9</div>
+					<div className='numbers__item'>10</div>
 				</div>
 
-				<Tiles battlegroundId={id} />
+				<Board />
 			</div>
 		</div>
 	);

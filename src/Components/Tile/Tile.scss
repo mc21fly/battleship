@@ -1,0 +1,44 @@
+.tile {
+	transition: 0.2s;
+	border-top: 1px solid black;
+	border-left: 1px solid black;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 12px;
+	color: #bbb;
+	font-weight: 300;
+
+	&[data-type='WATER'] {
+		background-color: #fff;
+	}
+
+	&[data-type='WATER_HIT'] {
+		background-color: #077;
+	}
+	&[data-type='SHIP'] {
+		background-color: #ddd;
+	}
+
+	&[data-type='SHIP_HIT'] {
+		background-color: #007;
+	}
+	&[data-type='FORBIDDEN'] {
+		background-color: #fff;
+
+		&::after {
+			content: '';
+			position: absolute;
+			width: 10px;
+			height: 10px;
+			border-radius: 50%;
+			background-color: #ddd;
+			opacity: 0.5;
+		}
+	}
+
+	&:hover {
+		background-color: #eee;
+		cursor: pointer;
+	}
+}
