@@ -41,3 +41,62 @@ export function calculateForbiddenTiles(tile) {
 		}
 	}
 }
+
+export function calculateLastForbiddenTiles(ship) {
+	const sorted = ship.sort((a, b) => a - b);
+	const SHIP_FIRST_TILE = 0;
+	const SHIP_LAST_TILE = sorted.length - 1;
+	const LAST_TILES = [];
+
+	const getTiles = (tile) => {
+		const TILE_LAYS_ON_EDGE = isEdgeTile(tile);
+
+		if (TILE_LAYS_ON_EDGE) {
+			return new Forbidden(tile, [tile + 10, tile - 10]);
+		} else {
+			switch (tile) {
+				case CORNERS.TOP_LEFT:
+					return sorted.length > 1
+						? new Forbidden(tile, [])
+						: new Forbidden(tile, [tile + 1, tile + 10, tile + (10 + 1)]);
+				case CORNERS.TOP_RIGHT:
+					return sorted.length > 1
+						? new Forbidden(tile, [])
+						: new Forbidden(tile, [tile - 1, tile + 10, tile + (10 - 1)]);
+				case CORNERS.BOTTOM_LEFT:
+					return sorted.length > 1
+						? new Forbidden(tile, [])
+						: new Forbidden(tile, [tile + 1, tile - 10, tile - (10 + 1)]);
+				case CORNERS.BOTTOM_RIGHT:
+					return sorted.length > 1
+						? new Forbidden(tile, [])
+						: new Forbidden(tile, [tile - 1, tile + 10, tile + (10 - 1)]);
+				default:
+					return new Forbidden(tile, [tile - 1, tile + 1, tile - 10, tile + 10]);
+			}
+		}
+	};
+
+	sorted.forEach((tile, index) => {
+		if (index === SHIP_FIRST_TILE || index === SHIP_LAST_TILE) {
+			LAST_TILES.push(getTiles(tile));
+		}
+	});
+
+	return LAST_TILES;
+
+	// return [
+	// 	new Forbidden(SHIP_FIRST_TILE, [
+	// 		SHIP_FIRST_TILE + 1,
+	// 		SHIP_FIRST_TILE - 1,
+	// 		SHIP_FIRST_TILE + 10,
+	// 		SHIP_FIRST_TILE - 10,
+	// 	]),
+	// 	new Forbidden(SHIP_LAST_TILE, [
+	// 		SHIP_LAST_TILE + 1,
+	// 		SHIP_LAST_TILE - 1,
+	// 		SHIP_LAST_TILE + 10,
+	// 		SHIP_LAST_TILE - 10,
+	// 	]),
+	// ];
+}

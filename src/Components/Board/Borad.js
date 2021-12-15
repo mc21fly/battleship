@@ -1,13 +1,13 @@
 import Tile from '../Tile/Tile';
 import { BATTLEGROUND_SIZE, NEW_FLEET, MODES, TILE_TYPE } from '../../assets/Constants/Constants';
 
-import { calculateForbiddenTiles } from '../../assets/Functions/Functions';
+import { calculateForbiddenTiles, calculateLastForbiddenTiles } from '../../assets/Functions/Functions';
 
 import './Board.scss';
 import { useEffect, useState } from 'react/cjs/react.development';
 
 const Board = () => {
-	const [mode] = useState(MODES.PREPARE_MODE);
+	const [mode, setMode] = useState(MODES.PREPARE_MODE);
 	const [shipsTiles, setShipsTiles] = useState([]);
 	const [forbiddenTiles, setForbiddenTiles] = useState([]);
 	const [fleet] = useState(NEW_FLEET);
@@ -29,8 +29,7 @@ const Board = () => {
 	};
 
 	const placeShipTile = (tile) => {
-		const CURRENT_SHIP = shipTemp.sort((a, b) => a - b);
-		const CURRENT_SHIP_SIZE = CURRENT_SHIP.length;
+		const CURRENT_SHIP_SIZE = shipTemp.length;
 		const TILE_IS_AVAILABLE = isAvailabe(tile);
 		const TILE_IS_ADHERENT = isAdherent(tile);
 		const FORBIDDEN_TILES = calculateForbiddenTiles(tile);
@@ -133,7 +132,7 @@ const Board = () => {
 				prepareFleet(tile);
 				break;
 			case MODES.BATTLE_MODE:
-				// battle()
+				console.log('Battle mode', tile);
 				break;
 			default:
 				console.log('Default mode', tile);
@@ -161,6 +160,29 @@ const Board = () => {
 
 		return tiles;
 	};
+
+	useEffect(() => {
+		const FLEET_SIZE = fleet.length;
+		const CURRENT_FLEET_SIZE = shipsTiles.length;
+
+		if (CURRENT_FLEET_SIZE === FLEET_SIZE) {
+			setMode(MODES.BATTLE_MODE);
+		}
+	}, [fleet.length, shipsTiles]);
+
+	useEffect(() => {
+		const CURRENT_SHIP_SIZE = shipTemp.length;
+		const NEXT_FLEET_SHIP = fleet[shipsTiles.length];
+		const PREPARED_SHIP = shipTemp;
+		const SHIP_LAST_TILES = calculateLastForbiddenTiles(PREPARED_SHIP);
+
+		if (CURRENT_SHIP_SIZE === NEXT_FLEET_SHIP) {
+			setShipsTiles([...shipsTiles, PREPARED_SHIP]);
+			setForbiddenTiles([...forbiddenTiles, ...forbiddenTemp, ...SHIP_LAST_TILES]);
+			setShipTemp([]);
+			setForbiddenTemp([]);
+		}
+	}, [fleet, forbiddenTemp, forbiddenTiles, shipTemp, shipsTiles]);
 
 	return <div className='board'>{render()}</div>;
 };
