@@ -6,7 +6,7 @@ import { calculateForbiddenTiles, calculateLastForbiddenTiles } from '../../asse
 import './Board.scss';
 import { useEffect, useState } from 'react/cjs/react.development';
 
-const Board = ({ onShipsLeft }) => {
+const Board = () => {
 	const [mode, setMode] = useState(MODES.PREPARE_MODE);
 	const [shipsTiles, setShipsTiles] = useState([]);
 	const [forbiddenTiles, setForbiddenTiles] = useState([]);
@@ -15,6 +15,16 @@ const Board = ({ onShipsLeft }) => {
 
 	const [shipTemp, setShipTemp] = useState([]);
 	const [forbiddenTemp, setForbiddenTemp] = useState([]);
+
+	const resetBoard = () => {
+		if (mode === MODES.PREPARE_MODE) {
+			setShipsTiles([]);
+			setForbiddenTiles([]);
+
+			setShipTemp([]);
+			setForbiddenTemp([]);
+		}
+	};
 
 	const prepareFleet = (tile) => {
 		if (isShipTempTile(tile)) {
@@ -122,6 +132,10 @@ const Board = ({ onShipsLeft }) => {
 		else return TILE_TYPE.WATER;
 	};
 
+	const getShipsLeft = () => {
+		return fleet.length - shipsTiles.length;
+	};
+
 	const clickHandler = (tile) => {
 		switch (mode) {
 			case MODES.PREPARE_MODE:
@@ -177,11 +191,21 @@ const Board = ({ onShipsLeft }) => {
 			setForbiddenTiles([...forbiddenTiles, ...forbiddenTemp, ...SHIP_LAST_TILES]);
 			setShipTemp([]);
 			setForbiddenTemp([]);
-			onShipsLeft();
 		}
-	}, [fleet, forbiddenTemp, forbiddenTiles, onShipsLeft, shipTemp, shipsTiles]);
+	}, [fleet, forbiddenTemp, forbiddenTiles, shipTemp, shipsTiles]);
 
-	return <div className='board'>{render()}</div>;
+	return (
+		<div className='board'>
+			{render()}
+
+			<div className='board__hud'>
+				<div className='hud__item'>Ships left: {getShipsLeft()}</div>
+				<div className='hud__item button' onClick={resetBoard}>
+					RESET
+				</div>
+			</div>
+		</div>
+	);
 };
 
 export default Board;

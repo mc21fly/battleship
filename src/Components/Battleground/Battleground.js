@@ -1,14 +1,11 @@
-import { useState } from 'react';
 import Board from '../Board/Borad';
 import './Battleground.scss';
 
 const Battleground = ({ id }) => {
-	const [shipsLeft, setShipLeft] = useState(7);
-
 	return (
 		<div className='battleground'>
 			<div className='battleground__wrapper'>
-				<div className='corner'>{shipsLeft > 0 ? shipsLeft : ''}</div>
+				<div className='corner' />
 
 				<div className='letters'>
 					<div className='letters__item'>A</div>
@@ -38,7 +35,7 @@ const Battleground = ({ id }) => {
 					<div className='numbers__item'>10</div>
 				</div>
 
-				<Board onShipsLeft={() => setShipLeft(shipsLeft - 1)} />
+				<Board />
 			</div>
 		</div>
 	);

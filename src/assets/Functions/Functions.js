@@ -96,19 +96,4 @@ export function calculateLastForbiddenTiles(ship) {
 	});
 
 	return LAST_TILES;
-
-	// return [
-	// 	new Forbidden(SHIP_FIRST_TILE, [
-	// 		SHIP_FIRST_TILE + 1,
-	// 		SHIP_FIRST_TILE - 1,
-	// 		SHIP_FIRST_TILE + 10,
-	// 		SHIP_FIRST_TILE - 10,
-	// 	]),
-	// 	new Forbidden(SHIP_LAST_TILE, [
-	// 		SHIP_LAST_TILE + 1,
-	// 		SHIP_LAST_TILE - 1,
-	// 		SHIP_LAST_TILE + 10,
-	// 		SHIP_LAST_TILE - 10,
-	// 	]),
-	// ];
 }

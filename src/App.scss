@@ -16,3 +16,16 @@ a {
 		cursor: pointer;
 	}
 }
+
+.button {
+	background-color: #ddd;
+	padding: 2px 12px;
+	border-radius: 5px;
+	font-size: 14px;
+	transition: 0.2s;
+
+	&:hover {
+		background-color: #eee;
+		cursor: pointer;
+	}
+}

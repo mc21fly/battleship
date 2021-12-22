@@ -7,4 +7,13 @@
 	grid-template-rows: repeat(10, 50px);
 	border-bottom: 1px solid black;
 	border-right: 1px solid black;
+
+	&__hud {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 10px;
+		font-size: 17px;
+		font-weight: 900;
+		width: 500px;
+	}
 }
